@@ -6,6 +6,7 @@ DEFAULT_LENGTH = 14
 
 def generate(length):
     '''Create a random password with arbitrary length'''
+
     characters = string.ascii_letters + string.digits + string.punctuation
     result = "".join(random.choice(characters) for _ in range(length))
 
@@ -16,6 +17,7 @@ def generate(length):
 
 def identify_string(input_string):
     '''Separate an input string based on the types of characters within it'''
+
     digits = "".join([char for char in input_string if char.isdigit()])
     letters = "".join([char for char in input_string if char.isalpha()])
     punctuation = "".join(
