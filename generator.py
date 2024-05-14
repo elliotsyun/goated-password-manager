@@ -46,6 +46,7 @@ def generate_with_string(input_string):
 def regular_password(password):
     reg_pass = str(password)
 
+    print(reg_pass)
     return reg_pass
 
 
@@ -56,3 +57,6 @@ print("\n")
 print("This is regular generate")
 generate(DEFAULT_LENGTH)
 print("\n")
+
+print("This is the regular no generate password")
+regular_password("penis hair")
