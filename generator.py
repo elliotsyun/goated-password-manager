@@ -5,7 +5,7 @@ DEFAULT_LENGTH = 14
 
 
 def generate(length):
-    '''Create a random password with arbitrary length'''
+    """Create a random password with arbitrary length"""
 
     characters = string.ascii_letters + string.digits + string.punctuation
     result = "".join(random.choice(characters) for _ in range(length))
@@ -16,8 +16,8 @@ def generate(length):
 
 
 def generate_with_string(input_string):
-    '''Generate a string with given keywords, separated by whitespace, making sure that a string has at
-    least a certain length of DEFAULT_LENGTH'''
+    """Generate a string with given keywords, separated by whitespace, making sure that a string has at
+    least a certain length of DEFAULT_LENGTH"""
 
     # make keywords a string, make a list
     keywords = input_string.split()  # list
@@ -44,7 +44,7 @@ def generate_with_string(input_string):
 
 
 def regular_password(password):
-    '''Just return the password given by the user'''
+    """Just return the password given by the user"""
     reg_pass = str(password)
 
     print(reg_pass)
