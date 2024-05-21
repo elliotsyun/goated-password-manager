@@ -6,7 +6,7 @@ def encrypt(password):
     """Encrypts password using AES encryption"""
 
     # put the secret password into a byte literal
-    data = bytes(password)
+    data = bytes(password, "utf-8")
     print("This is the password", password)
 
     # generates a random 16 byte key
@@ -25,16 +25,33 @@ def encrypt(password):
     nonce = cipher.nonce
     print("This is nonce", nonce)
 
-    return key, nonce, ciphertext, tag
+    # store result in dictionary
+    result = {"key": key, "nonce": nonce, "ciphertext": ciphertext, "tag": tag}
+
+    return result
 
 
-def decrypt(ciphertext, key, tag, nonce):
+def decrypt(encryption):
     """Decrypts password"""
+
+    # takes part of the encryption
+    key = encryption["key"]
+    nonce = encryption["nonce"]
+    ciphertext = encryption["ciphertext"]
+    tag = encryption["tag"]
 
     # creates the decryption cipher object with the same key and nonce
     cipher = AES.new(key, AES.MODE_EAX, nonce)
+    print("This is the cipher again", cipher)
 
-    # decrypts cipher back to original form
+    # decrypts cipher back to original form with the tag
     data = cipher.decrypt_and_verify(ciphertext, tag)
 
-    return data
+    result = data.decode("utf-8")
+    print("This is the result", result)
+
+    return result
+
+
+test = encrypt("Gon7P(}[`c?5hk")
+decrypt(test)
