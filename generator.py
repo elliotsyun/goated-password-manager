@@ -44,6 +44,7 @@ def generate_with_string(input_string):
 
 
 def regular_password(password):
+    '''Just return the password given by the user'''
     reg_pass = str(password)
 
     print(reg_pass)
