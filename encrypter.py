@@ -3,7 +3,7 @@ from Crypto.Random import get_random_bytes
 
 
 def encrypt(password):
-    """Encrypts password using AES encryption"""
+    '''Encrypts password using AES encryption'''
 
     # put the secret password into a byte literal
     data = bytes(password, "utf-8")
@@ -32,7 +32,7 @@ def encrypt(password):
 
 
 def decrypt(encryption):
-    """Decrypts password"""
+    '''Decrypts password'''
 
     # takes part of the encryption
     key = encryption["key"]
