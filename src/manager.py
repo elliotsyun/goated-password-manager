@@ -2,15 +2,23 @@ import random
 
 # total encompassing list that stores all the types of password managers
 MANAGER = []
-SEEN_KEYS = set()
-SEEN_GROUPS = set()
+SEEN_NAMES = set()
 
 
 def create_group():
     '''Creates a storage object called a 'group' that has a dictionary
     for passwords and a purpose for the password'''
 
-    name = input("Group's Purpose: ")
+    name = input("Group Name: ")
+
+    while True:
+
+        if name in SEEN_NAMES:
+            print(f"{name} is already an existing group, use another name.")
+        else:
+            print(f"{name} has been created and added to groups.")
+            SEEN_NAMES.add(name)
+            break
 
     # 2 item dictionary created with name, passwords, where passwords are {} its
     # own dictionary
