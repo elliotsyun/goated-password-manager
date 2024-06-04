@@ -58,13 +58,6 @@ def search_group(group_name):
 
 def delete_group(group_name):
 
-    # search for the group_name in SEEN_NAMES
-
-    if group_name in SEEN_NAMES:
-        print(
-            f"The group, {group_name}, is already an existing group, use another name.")
-        return None
-
     if search_group(group_name):
         print("Commencing deletion...")
     else:
@@ -87,7 +80,7 @@ def delete_group(group_name):
 def add_pass(group_name, id, new_pass):
     '''Adds a password to the password group'''
 
-    if group not in MANAGER:
+    if group_name not in MANAGER:
         print("This group does not exist.")
         return
 
@@ -117,15 +110,17 @@ def add_pass(group_name, id, new_pass):
     return group
 
 
-def search_pass(group_name, id, password):
-    # create this
-    return None
+def search_id(group_name, id, password):
+
+    if group_name not in MANAGER:
+        print("This group does not exist.")
+        return
 
 
 def delete_pass(group_name, del_id):
     '''Deletes a password from a specific given group'''
 
-    if group not in MANAGER:
+    if group_name not in MANAGER:
         print("This group does not exist.")
         return
 
