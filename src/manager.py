@@ -1,5 +1,8 @@
 import random
 
+'''print_manager, create_group, search_group, delete_group, add_pass, search_id,
+delete_pass'''
+
 # total encompassing list that stores all the types of password managers
 MANAGER = {}
 SEEN_NAMES = set()

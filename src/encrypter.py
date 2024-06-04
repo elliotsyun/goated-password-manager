@@ -1,6 +1,8 @@
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 
+'''encrypt, decrypt passwords'''
+
 
 def encrypt(password):
     '''Encrypts password using AES encryption'''

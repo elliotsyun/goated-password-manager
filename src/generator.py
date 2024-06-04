@@ -1,6 +1,8 @@
 import random
 import string
 
+'''generate, generate_with_string, regular_password'''
+
 DEFAULT_LENGTH = 14
 
 
