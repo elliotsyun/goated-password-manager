@@ -110,11 +110,21 @@ def add_pass(group_name, id, new_pass):
     return group
 
 
-def search_id(group_name, id, password):
+def search_id(group_name, id):
 
     if group_name not in MANAGER:
         print("This group does not exist.")
         return
+
+    group = MANAGER[group_name]
+    passwords = group[passwords]
+
+    if id in passwords:
+        print(f"The id, {id}, exists in the group, {group_name}")
+        return True
+    else:
+        print(f"The id, {id}, does not exist or is not in this group.")
+        return False
 
 
 def delete_pass(group_name, del_id):
