@@ -7,7 +7,8 @@ SEEN_NAMES = set()
 
 def print_manager():
     '''Prints the current password manager list'''
-    print("Current Groups in Manager:")
+
+    print("MANAGER -> GROUPS")
     for group_name in MANAGER:
         print(f"{group_name} ")
     return None
@@ -17,44 +18,70 @@ def create_group(group_name):
     '''Creates a storage object called a 'group' that has a dictionary
     for passwords and a purpose for the password'''
 
+    # search for the group_name in SEEN_NAMES
+
     if group_name in SEEN_NAMES:
-        print(f"{group_name} is already an existing group, use another name.")
+        print(
+            f"The group, {group_name}, is already an existing group, use another name.")
         return None
 
-    # 2 item dictionary created with name, passwords, where passwords are {} its
-    # own dictionary
+    # create a 'group' where the name is the group name and the passwords is a
+    # dictionary of kvpairs
 
     group = {"name": group_name, "passwords": {}}
 
     # adds the group to the manager using group_name as the key
     MANAGER[group_name] = group
 
+    if (group_name, group) in MANAGER:
+        print(f"The group, {group_name} has been created.")
+        return group_name, group
+    else:
+        print(f"There was an error in creating the group, {group_name}.")
+
     print(group_name, " has been created")
     print_manager()
 
-    return group
+    return group_name, group
 
 
 def search_group(group_name):
     '''Searches for a specific group in the manager'''
 
     if group_name in MANAGER:
-        print(f"{group_name} found")
-        return MANAGER[group_name]
+        print(f"The group, {group_name}, found.")
+        return True
     else:
-        print(f"{group_name} not found")
-        return None
+        print(f"The group, {group_name}, was not found.")
+        return False
 
 
 def delete_group(group_name):
 
-    # the group name exists and group is in manager
+    # search for the group_name in SEEN_NAMES
 
-    # the group is deleted
+    if group_name in SEEN_NAMES:
+        print(
+            f"The group, {group_name}, is already an existing group, use another name.")
+        return None
 
-    # the group is returned
+    if search_group(group_name):
+        print("Commencing deletion...")
+    else:
+        print("Group not found, halting deletion.")
 
-    return None
+    deleted_group = MANAGER.pop(group_name)
+
+    # double check if it isn't deleted
+
+    if (group_name) in MANAGER:
+        print(
+            f"There was an error in deleting the group, {deleted_group}, from your file MANAGER.")
+    else:
+        print(
+            f"The group, {group_name} has been deleted from your file MANAGER.")
+
+    return deleted_group
 
 
 def add_pass(group_name, id, new_pass):
@@ -70,26 +97,33 @@ def add_pass(group_name, id, new_pass):
 
     while True:
 
-        # if it is a duplicate, tell them this id is already added
+        # if it is a duplicate, say this id is already added
         if id in passwords:
             print(f"{id} is already in passwords, make a new id.")
         else:
             print(f"{id} is a unique id, commencing password addition...")
             break
 
-        # add key:value pair to passwords using id:new_pass
+        # add kv pair to passwords using id:new_pass
     passwords[id] = new_pass
 
     # double check if it is added
     if (id, new_pass) in passwords:
-        print(f"{id} has been added to {group_name}")
+        print(f"The id, {id}, has been added to the group, {group_name}.")
     else:
-        print(f"There was an error in adding {id} to {group_name}")
+        print(
+            f"There was an error in adding id, {id}, to the group, {group_name}.")
 
     return group
 
 
+def search_pass(group_name, id, password):
+    # create this
+    return None
+
+
 def delete_pass(group_name, del_id):
+    '''Deletes a password from a specific given group'''
 
     if group not in MANAGER:
         print("This group does not exist.")
@@ -100,19 +134,20 @@ def delete_pass(group_name, del_id):
 
     # if the deletion id is not in passwords table, then print these
     if del_id not in passwords:
-        print("The password identifier is not found or the password does not exist")
+        print("The password id is not found or the password does not exist.")
         return group
     else:
-        print("Password identifier found, commencing deletion...")
+        print("Password id found, commencing deletion...")
 
     # delete the password
     deleted_pass = passwords.pop(del_id)
 
-    # if it somehow is still in the passwords group
+    # double check if it is deleted
     if (del_id) in passwords:
-        print(f"There was an error in deleting {del_id} from {group_name}")
+        print(
+            f"There was an error in deleting the id, {del_id}, from the group, {group_name}.")
     else:
         print(
-            f"{del_id} with password {deleted_pass} has been deleted from {group_name}")
+            f"The id, {del_id}, with password {deleted_pass} has been deleted from the group, {group_name}.")
 
     return group, deleted_pass
