@@ -1,7 +1,27 @@
-import random
+'''
+This module provides functions to manage password groups, including creating, searching, deleting groups, and adding, searching, deleting passwords within those groups.
 
-'''print_manager, create_group, search_group, delete_group, add_pass, search_id,
-delete_pass'''
+Functions:
+    print_manager(): Prints the current password manager list.
+    create_group(group_name): Creates a storage object called a 'group' that has a dictionary for passwords and a purpose for the password.
+    search_group(group_name): Searches for a specific group in the manager.
+    delete_group(group_name): Deletes a specified group from the manager.
+    add_pass(group_name, id, new_pass): Adds a password to the password group.
+    search_id(group_name, id): Searches for a specific password id within a given group.
+    delete_pass(group_name, del_id): Deletes a password from a specific given
+    group.
+
+Author:
+    Elliot Yun
+
+Date:
+    2024-06-04
+
+Version:
+    1.0.0
+'''
+
+import random
 
 # total encompassing list that stores all the types of password managers
 MANAGER = {}
@@ -9,7 +29,12 @@ SEEN_NAMES = set()
 
 
 def print_manager():
-    '''Prints the current password manager list'''
+    '''
+    Prints the current password manager list.
+
+    Returns:
+        None
+    '''
 
     print("MANAGER -> GROUPS")
     for group_name in MANAGER:
@@ -18,8 +43,15 @@ def print_manager():
 
 
 def create_group(group_name):
-    '''Creates a storage object called a 'group' that has a dictionary
-    for passwords and a purpose for the password'''
+    '''
+    Creates a storage object called a 'group' that has a dictionary for passwords and a purpose for the password.
+
+    Args:
+        group_name (str): The name of the group to be created.
+
+    Returns:
+        tuple: The name and the group dictionary if created, otherwise None.
+    '''
 
     # search for the group_name in SEEN_NAMES
 
@@ -49,7 +81,15 @@ def create_group(group_name):
 
 
 def search_group(group_name):
-    '''Searches for a specific group in the manager'''
+    '''
+    Searches for a specific group in the manager.
+
+    Args:
+        group_name (str): The name of the group to search for.
+
+    Returns:
+        bool: True if the group is found, otherwise False.
+    '''
 
     if group_name in MANAGER:
         print(f"The group, {group_name}, found.")
@@ -60,6 +100,15 @@ def search_group(group_name):
 
 
 def delete_group(group_name):
+    '''
+    Deletes a specified group from the manager.
+
+    Args:
+        group_name (str): The name of the group to delete.
+
+    Returns:
+        dict: The deleted group dictionary if deleted, otherwise None.
+    '''
 
     if search_group(group_name):
         print("Commencing deletion...")
@@ -81,7 +130,17 @@ def delete_group(group_name):
 
 
 def add_pass(group_name, id, new_pass):
-    '''Adds a password to the password group'''
+    '''
+    Adds a password to the password group.
+
+    Args:
+        group_name (str): The name of the group.
+        id (str): The id for the new password.
+        new_pass (str): The password to be added.
+
+    Returns:
+        dict: The updated group dictionary if added, otherwise None.
+    '''
 
     if group_name not in MANAGER:
         print("This group does not exist.")
@@ -114,6 +173,16 @@ def add_pass(group_name, id, new_pass):
 
 
 def search_id(group_name, id):
+    '''
+    Searches for a specific password id within a given group.
+
+    Args:
+        group_name (str): The name of the group.
+        id (str): The id of the password to search for.
+
+    Returns:
+        bool: True if the id is found, otherwise False.
+    '''
 
     if group_name not in MANAGER:
         print("This group does not exist.")
@@ -131,7 +200,17 @@ def search_id(group_name, id):
 
 
 def delete_pass(group_name, del_id):
-    '''Deletes a password from a specific given group'''
+    '''
+    Deletes a password from a specific given group.
+
+    Args:
+        group_name (str): The name of the group.
+        del_id (str): The id of the password to delete.
+
+    Returns:
+        tuple: The updated group dictionary and the deleted password if deleted,
+        otherwise None.
+    '''
 
     if group_name not in MANAGER:
         print("This group does not exist.")

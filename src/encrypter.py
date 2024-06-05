@@ -1,11 +1,45 @@
+'''
+This module provides functions to encrypt and decrypt passwords using AES encryption.
+
+Functions:
+    encrypt(password): Encrypts a password using AES encryption.
+    decrypt(encryption): Decrypts an encrypted password.
+
+Example:
+    To encrypt a password:
+
+    >>> result = encrypt("my_password")
+    >>> print(result)
+
+    To decrypt a password:
+
+    >>> original = decrypt(result)
+    >>> print(original)
+
+Author:
+    Elliot Yun
+
+Date:
+    2024-06-04
+
+Version:
+    1.0.0
+'''
+
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 
-'''encrypt, decrypt passwords'''
-
 
 def encrypt(password):
-    '''Encrypts password using AES encryption'''
+    '''
+    Encrypts a password using AES encryption.
+
+    Args:
+        password (str): The password to encrypt.
+
+    Returns:
+        dict: A dictionary containing the encryption key, nonce, ciphertext, and authentication tag.
+    '''
 
     # put the secret password into a byte literal
     data = bytes(password, "utf-8")
@@ -34,7 +68,15 @@ def encrypt(password):
 
 
 def decrypt(encryption):
-    '''Decrypts password'''
+    '''
+    Decrypts an encrypted password.
+
+    Args:
+        encryption(dict): A dictionary containing the encryption key, nonce, ciphertext, and authentication tag.
+
+    Returns:
+        str: The decrypted password.
+    '''
 
     # takes part of the encryption
     key = encryption["key"]
@@ -53,7 +95,3 @@ def decrypt(encryption):
     print("This is the result", result)
 
     return result
-
-
-test = encrypt("Gon7P(}[`c?5hk")
-decrypt(test)

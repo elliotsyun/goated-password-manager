@@ -1,13 +1,53 @@
 import random
 import string
 
-'''generate, generate_with_string, regular_password'''
+'''
+This module provides functions to generate passwords, either randomly or based on given keywords, and to return a user-provided password.
+
+Functions:
+    generate(length): Creates a random password of arbitrary length.
+    generate_with_string(input_string): Generates a password based on given keywords, ensuring a minimum length.
+    regular_password(password): Returns the password provided by the user.
+
+Constants:
+    DEFAULT_LENGTH (int): The default length for passwords.
+
+Example:
+    To generate a random password:
+
+    >>> generate(14)
+
+    To generate a password based on keywords:
+
+    >>> generate_with_string("example keyword")
+
+    To return a user-provided password:
+
+    >>> regular_password("user_password")
+
+Author:
+    Elliot Yun
+
+Date:
+    2024-06-04
+
+Version:
+    1.0.0
+'''
 
 DEFAULT_LENGTH = 14
 
 
 def generate(length):
-    '''Create a random password with arbitrary length'''
+    '''
+    Creates a random password of arbitrary length.
+
+    Args:
+        length (int): The desired length of the password.
+
+    Returns:
+        str: The generated password.
+    '''
 
     characters = string.ascii_letters + string.digits + string.punctuation
     result = "".join(random.choice(characters) for _ in range(length))
@@ -18,8 +58,15 @@ def generate(length):
 
 
 def generate_with_string(input_string):
-    '''Generate a string with given keywords, separated by whitespace, making sure that a string has at
-    least a certain length of DEFAULT_LENGTH'''
+    '''
+    Generates a password based on given keywords, ensuring a minimum length of DEFAULT_LENGTH.
+
+    Args:
+        input_string (str): A string of keywords separated by whitespace.
+
+    Returns:
+        str: The generated password.
+    '''
 
     # make keywords a string, make a list
     keywords = input_string.split()  # list
@@ -46,20 +93,16 @@ def generate_with_string(input_string):
 
 
 def regular_password(password):
-    '''Just return the password given by the user'''
+    '''
+    Returns the password provided by the user.
+
+    Args:
+        password (str): The password to return.
+
+    Returns:
+        str: The provided password.
+    '''
     reg_pass = str(password)
 
     print(reg_pass)
     return reg_pass
-
-
-print("This is generate with string")
-generate_with_string("pen is esss hai rs")
-print("\n")
-
-print("This is regular generate")
-generate(DEFAULT_LENGTH)
-print("\n")
-
-print("This is the regular no generate password")
-regular_password("penis hair")
