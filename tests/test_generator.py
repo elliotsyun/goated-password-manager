@@ -10,56 +10,66 @@ class TestGenerator(unittest.TestCase):
 
     def test_generate_length(self):
         length = 14
-        password = generator.generate(length)
-        self.assertEqual(len(password), length)
+        iterations = 100  # Number of iterations to increase the likelihood of capturing all character types
 
-    def test_generate_with_string_minimum_length(self):
+        for _ in range(iterations):
+            password = generator.generate(length)
+            self.assertEqual(
+                len(password),
+                length,
+                "Password length should match the specified length.",
+            )
+
+        # Checking the likelihood of the password containing digits, letters, and punctuation over multiple iterations
+        contains_digit = any(
+            any(char.isdigit() for char in generator.generate(length))
+            for _ in range(iterations)
+        )
+        contains_letter = any(
+            any(char.isalpha() for char in generator.generate(length))
+            for _ in range(iterations)
+        )
+        contains_punctuation = any(
+            any(char in string.punctuation for char in generator.generate(length))
+            for _ in range(iterations)
+        )
+
+        self.assertTrue(contains_digit, "Password should contain digits.")
+        self.assertTrue(contains_letter, "Password should contain letters.")
+        self.assertTrue(contains_punctuation, "Password should contain punctuation.")
+
+    def test_generate_with_string_keywords(self):
         input_string = "example keyword"
         password = generator.generate_with_string(input_string)
-        self.assertGreaterEqual(len(password), generator.DEFAULT_LENGTH)
+        self.assertIn(
+            "examplekeyword",
+            password,
+            "Password should contain the combined keywords 'example' and 'keyword'.",
+        )
+        self.assertTrue(
+            len(password) > len("examplekeyword"),
+            "Password should contain additional random characters.",
+        )
 
-    def test_generate_with_string_contains_keywords(self):
+    def test_generate_with_string_seed(self):
         input_string = "example keyword"
-        password = generator.generate_with_string(input_string)
-        self.assertIn("example", password)
-        self.assertIn("keyword", password)
-
-    def test_generate_with_string_randomness(self):
-        seed = 100
-        input_string = "example keyword"
+        seed = 42
         password1 = generator.generate_with_string(input_string, seed)
         password2 = generator.generate_with_string(input_string, seed)
-        self.assertNotEqual(password1, password2)
+        self.assertEqual(
+            password1,
+            password2,
+            "Passwords should be identical when using the same seed.",
+        )
 
     def test_regular_password(self):
-        input_password = "user_password"
-        returned_password = generator.regular_password(input_password)
-        self.assertEqual(input_password, returned_password)
-
-    def test_generate_non_default_length(self):
-        length = 20
-        password = generator.generate(length)
-        self.assertEqual(len(password), length)
-
-    def test_generate_special_characters(self):
-        length = 50
-        password = generator.generate(length)
-        self.assertTrue(any(char in string.punctuation for char in password))
-
-    def test_generate_with_string_exact_length(self):
-        input_string = "thisisfourteen"
-        password = generator.generate_with_string(input_string)
-        self.assertEqual(len(password), generator.DEFAULT_LENGTH)
-
-    def test_generate_with_string_longer_than_default(self):
-        input_string = "thisisaverylongkeywordinputstring"
-        password = generator.generate_with_string(input_string)
-        self.assertEqual(len(password), len(input_string))
-
-    def test_generate_with_string_shuffled(self):
-        input_string = "shuffle test"
-        password = generator.generate_with_string(input_string)
-        self.assertNotEqual(password, input_string.replace(" ", ""))
+        user_password = "user_password"
+        returned_password = generator.regular_password(user_password)
+        self.assertEqual(
+            returned_password,
+            user_password,
+            "Returned password should match the user-provided password.",
+        )
 
 
 if __name__ == "__main__":

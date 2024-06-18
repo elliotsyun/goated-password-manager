@@ -6,11 +6,8 @@ This module provides functions to generate passwords, either randomly or based o
 
 Functions:
     generate(length): Creates a random password of arbitrary length.
-    generate_with_string(input_string): Generates a password based on given keywords, ensuring a minimum length.
+    generate_with_string(input_string): Generates a password based on given keywords.
     regular_password(password): Returns the password provided by the user.
-
-Constants:
-    DEFAULT_LENGTH (int): The default length for passwords.
 
 Example:
     To generate a random password:
@@ -29,13 +26,11 @@ Author:
     Elliot Yun
 
 Date:
-    2024-06-04
+    2024-06-18
 
 Version:
-    1.0.0
+    1.0.1
 """
-
-DEFAULT_LENGTH = 14
 
 
 def generate(length):
@@ -52,47 +47,45 @@ def generate(length):
     characters = string.ascii_letters + string.digits + string.punctuation
     result = "".join(random.choice(characters) for _ in range(length))
 
-    print(result)
-
     return result
 
 
 def generate_with_string(input_string, seed=None):
     """
-    Generates a password based on given keywords, ensuring a minimum length of DEFAULT_LENGTH.
+    Generates a password based on given keywords, and mixes in a random amount of characters.
 
     Args:
         input_string (str): A string of keywords separated by whitespace.
+        seed (int, optional): Seed for random generator to ensure reproducibility. Defaults to None.
 
     Returns:
         str: The generated password.
     """
+    if seed is not None:
+        random.seed(seed)
 
-    # make keywords a string, make a list
-    keywords = input_string.split()  # list
-    result = ("".join(keywords)).replace(" ", "")  # string
+    keywords = input_string.split()
+    joined_keywords = "".join(keywords)
 
-    # if the string is less than DEFAULT_LENGTH, then add random characters to the end of it
-    if len(result) < DEFAULT_LENGTH:  # 9
+    random_num = random.randint(3, 11)
+    random_chars = list(generate(random_num))
 
-        remaining_length = DEFAULT_LENGTH - len(result)  # 5
-        more_password = list(generate(remaining_length))  # list
+    if not any(char.isdigit() for char in joined_keywords):
+        random_chars.append(random.choice(string.digits))
+    if not any(char in string.punctuation for char in joined_keywords):
+        random_chars.append(random.choice(string.punctuation))
 
-        keywords += more_password  # concat the lists
+    random.shuffle(random_chars)
 
-        if seed is not None:
-            random.seed(seed)
+    # Insert the keywords into the shuffled random characters
+    insertion_index = random.randint(0, len(random_chars))
+    password_chars = (
+        random_chars[:insertion_index]
+        + [joined_keywords]
+        + random_chars[insertion_index:]
+    )
 
-        random.shuffle(keywords)
-        result = "".join(keywords)
-
-        return result
-
-    else:
-        random.shuffle(keywords)
-        result = "".join(keywords)
-
-    print(result)
+    result = "".join(password_chars)
     return result
 
 
@@ -108,5 +101,4 @@ def regular_password(password):
     """
     reg_pass = str(password)
 
-    print(reg_pass)
     return reg_pass
