@@ -3,6 +3,9 @@ from src import generator
 import string
 
 
+# in root dir, python -m unittest tests.test_generator
+
+
 class TestGenerator(unittest.TestCase):
 
     def test_generate_length(self):
