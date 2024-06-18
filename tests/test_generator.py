@@ -22,9 +22,10 @@ class TestGenerator(unittest.TestCase):
         self.assertIn("keyword", password)
 
     def test_generate_with_string_randomness(self):
+        seed = 100
         input_string = "example keyword"
-        password1 = generator.generate_with_string(input_string)
-        password2 = generator.generate_with_string(input_string)
+        password1 = generator.generate_with_string(input_string, seed)
+        password2 = generator.generate_with_string(input_string, seed)
         self.assertNotEqual(password1, password2)
 
     def test_regular_password(self):
@@ -43,7 +44,7 @@ class TestGenerator(unittest.TestCase):
         self.assertTrue(any(char in string.punctuation for char in password))
 
     def test_generate_with_string_exact_length(self):
-        input_string = "thisisexactlyfourteen"
+        input_string = "thisisfourteen"
         password = generator.generate_with_string(input_string)
         self.assertEqual(len(password), generator.DEFAULT_LENGTH)
 
@@ -58,5 +59,5 @@ class TestGenerator(unittest.TestCase):
         self.assertNotEqual(password, input_string.replace(" ", ""))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
