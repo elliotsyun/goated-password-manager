@@ -1,4 +1,4 @@
-'''
+"""
 This module provides functions to encrypt and decrypt passwords using AES encryption.
 
 Functions:
@@ -24,14 +24,14 @@ Date:
 
 Version:
     1.0.0
-'''
+"""
 
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 
 
 def encrypt(password):
-    '''
+    """
     Encrypts a password using AES encryption.
 
     Args:
@@ -39,7 +39,7 @@ def encrypt(password):
 
     Returns:
         dict: A dictionary containing the encryption key, nonce, ciphertext, and authentication tag.
-    '''
+    """
 
     # put the secret password into a byte literal
     data = bytes(password, "utf-8")
@@ -68,7 +68,7 @@ def encrypt(password):
 
 
 def decrypt(encryption):
-    '''
+    """
     Decrypts an encrypted password.
 
     Args:
@@ -76,7 +76,7 @@ def decrypt(encryption):
 
     Returns:
         str: The decrypted password.
-    '''
+    """
 
     # takes part of the encryption
     key = encryption["key"]

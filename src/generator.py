@@ -1,7 +1,7 @@
 import random
 import string
 
-'''
+"""
 This module provides functions to generate passwords, either randomly or based on given keywords, and to return a user-provided password.
 
 Functions:
@@ -33,13 +33,13 @@ Date:
 
 Version:
     1.0.0
-'''
+"""
 
 DEFAULT_LENGTH = 14
 
 
 def generate(length):
-    '''
+    """
     Creates a random password of arbitrary length.
 
     Args:
@@ -47,7 +47,7 @@ def generate(length):
 
     Returns:
         str: The generated password.
-    '''
+    """
 
     characters = string.ascii_letters + string.digits + string.punctuation
     result = "".join(random.choice(characters) for _ in range(length))
@@ -57,8 +57,8 @@ def generate(length):
     return result
 
 
-def generate_with_string(input_string):
-    '''
+def generate_with_string(input_string, seed=None):
+    """
     Generates a password based on given keywords, ensuring a minimum length of DEFAULT_LENGTH.
 
     Args:
@@ -66,7 +66,7 @@ def generate_with_string(input_string):
 
     Returns:
         str: The generated password.
-    '''
+    """
 
     # make keywords a string, make a list
     keywords = input_string.split()  # list
@@ -79,6 +79,10 @@ def generate_with_string(input_string):
         more_password = list(generate(remaining_length))  # list
 
         keywords += more_password  # concat the lists
+
+        if seed is not None:
+            random.seed(seed)
+
         random.shuffle(keywords)
         result = "".join(keywords)
 
@@ -93,7 +97,7 @@ def generate_with_string(input_string):
 
 
 def regular_password(password):
-    '''
+    """
     Returns the password provided by the user.
 
     Args:
@@ -101,7 +105,7 @@ def regular_password(password):
 
     Returns:
         str: The provided password.
-    '''
+    """
     reg_pass = str(password)
 
     print(reg_pass)
