@@ -149,7 +149,7 @@ The functions exist to be used however you want. The main file is just a demonst
 python main.py
 ```
 
-This project is licensed under the MIT License.
+This project has no license
 
 ```
 The main program demonstrates how to generate, manage, and secure passwords. It integrates all the functionalities from the encryption, generator, and manager modules to provide a comprehensive password management solution. Enjoy managing your passwords securely!
